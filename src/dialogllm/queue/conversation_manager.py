@@ -1,45 +1,32 @@
-from typing import Any, Dict, List
-import random
-from src.dialogllm.llm.llm_provider_manager import LLMProviderManager # Import LLMProviderManager
+from typing import Any, Dict, List, Callable, Optional, Awaitable
+from dialogllm.models.base import Message
 
-class ManagerNode:
+class ConversationManager:
     def __init__(self):
-        self.llm_manager = LLMProviderManager() # Instantiate LLMProviderManager
-        self.story_prompt = """
-        You are a story generator. Please create a compelling story framework, including:
+        self.messages: List[Message] = []
+        self.message_callbacks: List[Callable[[Message], Awaitable[None]]] = []
 
-        - Narrative Structure: (e.g., classic three-act structure, etc.)
-        - Character Personas: Detailed descriptions of the main characters.
-        - Thematic Nuances: Underlying themes and messages.
-        - Compelling Challenges: Obstacles and conflicts the characters will face.
+    def register_message_callback(self, callback: Callable[[Message], Awaitable[None]]) -> None:
+        """Register a callback for when new messages are added."""
+        self.message_callbacks.append(callback)
 
-        Format your response as a JSON object.
-        """ # System prompt for story generation
+    async def add_message(self, message: Message) -> None:
+        """Add a new message to the conversation."""
+        self.messages.append(message)
+        # Notify all callbacks
+        for callback in self.message_callbacks:
+            await callback(message)
 
-    async def generate_story(self) -> str:
-        """Generates a story/persona for the conversation using Ollama."""
-        story_framework = await self.llm_manager.generate_story(self.story_prompt)
-        return story_framework
+    async def get_last_message(self) -> Optional[Message]:
+        """Get the last message in the conversation."""
+        if not self.messages:
+            return None
+        return self.messages[-1]
 
+    def get_all_messages(self) -> List[Message]:
+        """Get all messages in the conversation."""
+        return self.messages.copy()
 
-    async def initialize_conversation(self) -> Dict:
-        """Initializes a new conversation."""
-        story = await self.generate_story()
-        conversation_data = {
-            "status": "initialized",
-            "story": story,
-            "participants": [],  # Placeholder for participants
-            "messages": []     # Placeholder for messages
-        }
-        return conversation_data
-
-    def monitor_conversation(self) -> Dict:
-        """Monitors the ongoing conversation."""
-        # Placeholder for monitoring dashboard
-        monitoring_data = {
-            "status": "monitoring",
-            "active_participants": 2,  # Placeholder
-            "message_count": 10,     # Placeholder
-            "errors": 0              # Placeholder
-        }
-        return monitoring_data
+    def clear_messages(self) -> None:
+        """Clear all messages from the conversation."""
+        self.messages.clear()
