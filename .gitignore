@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.whl
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-uninstall.log
+pip-review.txt
+
+# Environment virtualenv / conda
+.venv/
+venv/
+ENV/
+env.bak/
+myvenv/
+venv.bak/
+
+# PyTest cache
+.pytest_cache/
+
+# mypy cache
+.mypy_cache/
+
+# Ruff cache
+.ruff_cache/
+
+# isort cache
+.isort_cache/
+
+# Log files
+*.log
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+*.diff
+*.patch
+*.lock
+*.DS_Store
+
+# OS generated files
+._*
+Thumbs.db
+
+# VS Code files
+.vscode/
+
+# C extensions
+*.so
+*.pyd
+
+# Jupyter Notebook
+.ipynb_checkpoints

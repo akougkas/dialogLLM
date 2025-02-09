@@ -1,0 +1,1340 @@
+........................
+=============================== warnings summary ===============================
+src/dialogllm/testing/models.py:4
+  /mnt/nfs/dev/dialogLLM/src/dialogllm/testing/models.py:4: PytestCollectionWarning: cannot collect test class 'TestModel' because it has a __init__ constructor (from: tests/llm/test_client.py)
+    class TestModel(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+-------- coverage: platform linux, python 3.11.0-candidate-1 ---------
+Name                                                Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------------------------------------------
+src/dialogllm/__init__.py                               2      2      0      0     0%   5-6
+src/dialogllm/analysis/__init__.py                      0      0      0      0   100%
+src/dialogllm/analysis/analysis_utils.py               14     14      4      0     0%   3-37
+src/dialogllm/analysis/performance_calculators.py      20     20     12      0     0%   3-42
+src/dialogllm/analysis/report_generation.py             9      9      4      0     0%   3-23
+src/dialogllm/analysis/visualization_helpers.py         2      2      0      0     0%   3-15
+src/dialogllm/core/__init__.py                          2      0      0      0   100%
+src/dialogllm/core/client.py                           63     15      6      3    74%   22-24, 49, 51, 53, 61->75, 67-73, 75->exit, 78-79
+src/dialogllm/core/connection.py                       40     10      6      2    74%   15-16, 28, 38->31, 43, 45-46, 48-49, 51-52
+src/dialogllm/core/health.py                           13      0      0      0   100%
+src/dialogllm/core/runner.py                            9      9      2      0     0%   1-11
+src/dialogllm/llm/__init__.py                           0      0      0      0   100%
+src/dialogllm/llm/client.py                            19      0      0      0   100%
+src/dialogllm/llm/llm_provider_manager.py              17     17      0      0     0%   1-29
+src/dialogllm/llm/monitoring.py                         4      0      0      0   100%
+src/dialogllm/models/__init__.py                        0      0      0      0   100%
+src/dialogllm/queue/__init__.py                         0      0      0      0   100%
+src/dialogllm/queue/conversation_manager.py            17     17      0      0     0%   1-45
+src/dialogllm/testing/__init__.py                       2      0      0      0   100%
+src/dialogllm/testing/models.py                         4      0      0      0   100%
+src/dialogllm/utils/__init__.py                         0      0      0      0   100%
+src/dialogllm/utils/errors.py                          10      0      0      0   100%
+src/dialogllm/utils/logger.py                          72     19     20      8    68%   32, 35, 37, 47->56, 54, 59->exit, 68-70, 78-79, 98-99, 103-106, 109, 112, 115, 118, 121
+src/dialogllm/utils/metrics.py                         44     20      6      2    52%   11->13, 16->exit, 22-23, 27-28, 32, 36-37, 41-42, 47-49, 52-53, 56-62
+src/dialogllm/utils/state_manager.py                   10      5      2      0    42%   5, 8, 11, 14-15
+src/dialogllm/utils/timer.py                           13      6      2      0    47%   18, 22, 30-32, 40
+-----------------------------------------------------------------------------------------------
+TOTAL                                                 386    165     64     15    53%
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+config = <_pytest.config.Config object at 0x717dc9db6750>
+doit = <function _main at 0x717dca12a200>
+
+    def wrap_session(
+        config: Config, doit: Callable[[Config, Session], int | ExitCode | None]
+    ) -> int | ExitCode:
+        """Skeleton command line program."""
+        session = Session.from_config(config)
+        session.exitstatus = ExitCode.OK
+        initstate = 0
+        try:
+            try:
+                config._do_configure()
+                initstate = 1
+                config.hook.pytest_sessionstart(session=session)
+                initstate = 2
+>               session.exitstatus = doit(config, session) or 0
+
+.venv/lib/python3.11/site-packages/_pytest/main.py:283: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+config = <_pytest.config.Config object at 0x717dc9db6750>
+session = <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=65>
+
+    def _main(config: Config, session: Session) -> int | ExitCode | None:
+        """Default command line protocol for initialization, session,
+        running tests and reporting."""
+        config.hook.pytest_collection(session=session)
+>       config.hook.pytest_runtestloop(session=session)
+
+.venv/lib/python3.11/site-packages/_pytest/main.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HookCaller 'pytest_runtestloop'>
+kwargs = {'session': <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=65>}
+firstresult = True
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert (
+            not self.is_historic()
+        ), "Cannot directly call a historic hook - use call_historic instead."
+        self._verify_all_args_are_provided(kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_hooks.py:513: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.config.PytestPluginManager object at 0x717dc9f38350>
+hook_name = 'pytest_runtestloop'
+methods = [<HookImpl plugin_name='main', plugin=<module '_pytest.main' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/site-pa...7dc8eadf10>>, <HookImpl plugin_name='logging-plugin', plugin=<_pytest.logging.LoggingPlugin object at 0x717dc8eade90>>]
+kwargs = {'session': <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=65>}
+firstresult = True
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_manager.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.logging.LoggingPlugin object at 0x717dc8eade90>
+session = <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=65>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtestloop(self, session: Session) -> Generator[None, object, object]:
+        if session.config.option.collectonly:
+            return (yield)
+    
+        if self._log_cli_enabled() and self._config.get_verbosity() < 1:
+            # The verbose flag is needed to avoid messy test progress output.
+            self._config.option.verbose = 1
+    
+        with catching_logs(self.log_cli_handler, level=self.log_cli_level):
+            with catching_logs(self.log_file_handler, level=self.log_file_level):
+>               return (yield)  # Run all the tests.
+
+.venv/lib/python3.11/site-packages/_pytest/logging.py:803: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.terminal.TerminalReporter object at 0x717dc8eadf10>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtestloop(self) -> Generator[None, object, object]:
+>       result = yield
+
+.venv/lib/python3.11/site-packages/_pytest/terminal.py:673: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+session = <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=65>
+
+    def pytest_runtestloop(session: Session) -> bool:
+        if session.testsfailed and not session.config.option.continue_on_collection_errors:
+            raise session.Interrupted(
+                "%d error%s during collection"
+                % (session.testsfailed, "s" if session.testsfailed != 1 else "")
+            )
+    
+        if session.config.option.collectonly:
+            return True
+    
+        for i, item in enumerate(session.items):
+            nextitem = session.items[i + 1] if i + 1 < len(session.items) else None
+>           item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+
+.venv/lib/python3.11/site-packages/_pytest/main.py:362: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HookCaller 'pytest_runtest_protocol'>
+kwargs = {'item': <Function test_manager_node>, 'nextitem': <Function test_version>}
+firstresult = True
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert (
+            not self.is_historic()
+        ), "Cannot directly call a historic hook - use call_historic instead."
+        self._verify_all_args_are_provided(kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_hooks.py:513: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.config.PytestPluginManager object at 0x717dc9f38350>
+hook_name = 'pytest_runtest_protocol'
+methods = [<HookImpl plugin_name='runner', plugin=<module '_pytest.runner' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/sit...ugin=<module '_pytest.warnings' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/site-packages/_pytest/warnings.py'>>]
+kwargs = {'item': <Function test_manager_node>, 'nextitem': <Function test_version>}
+firstresult = True
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_manager.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    @pytest.hookimpl(wrapper=True, tryfirst=True)
+    def pytest_runtest_protocol(item: Item) -> Generator[None, object, object]:
+        with catch_warnings_for_item(
+            config=item.config, ihook=item.ihook, when="runtest", item=item
+        ):
+>           return (yield)
+
+.venv/lib/python3.11/site-packages/_pytest/warnings.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    @hookimpl(wrapper=True, tryfirst=True)
+    def pytest_runtest_protocol(item: Item) -> Generator[None, object, object]:
+        """Setup the pytest_assertrepr_compare and pytest_assertion_pass hooks.
+    
+        The rewrite module will use util._reprcompare if it exists to use custom
+        reporting via the pytest_assertrepr_compare hook.  This sets up this custom
+        comparison for the test.
+        """
+        ihook = item.ihook
+    
+        def callbinrepr(op, left: object, right: object) -> str | None:
+            """Call the pytest_assertrepr_compare hook and prepare the result.
+    
+            This uses the first result from the hook and then ensures the
+            following:
+            * Overly verbose explanations are truncated unless configured otherwise
+              (eg. if running in verbose mode).
+            * Embedded newlines are escaped to help util.format_explanation()
+              later.
+            * If the rewrite mode is used embedded %-characters are replaced
+              to protect later % formatting.
+    
+            The result can be formatted by util.format_explanation() for
+            pretty printing.
+            """
+            hook_result = ihook.pytest_assertrepr_compare(
+                config=item.config, op=op, left=left, right=right
+            )
+            for new_expl in hook_result:
+                if new_expl:
+                    new_expl = truncate.truncate_if_required(new_expl, item)
+                    new_expl = [line.replace("\n", "\\n") for line in new_expl]
+                    res = "\n~".join(new_expl)
+                    if item.config.getvalue("assertmode") == "rewrite":
+                        res = res.replace("%", "%%")
+                    return res
+            return None
+    
+        saved_assert_hooks = util._reprcompare, util._assertion_pass
+        util._reprcompare = callbinrepr
+        util._config = item.config
+    
+        if ihook.pytest_assertion_pass.get_hookimpls():
+    
+            def call_assertion_pass_hook(lineno: int, orig: str, expl: str) -> None:
+                ihook.pytest_assertion_pass(item=item, lineno=lineno, orig=orig, expl=expl)
+    
+            util._assertion_pass = call_assertion_pass_hook
+    
+        try:
+>           return (yield)
+
+.venv/lib/python3.11/site-packages/_pytest/assertion/__init__.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_protocol(item: Item) -> Generator[None, object, object]:
+        if isinstance(item, TestCaseFunction) and "twisted.trial.unittest" in sys.modules:
+            ut: Any = sys.modules["twisted.python.failure"]
+            global classImplements_has_run
+            Failure__init__ = ut.Failure.__init__
+            if not classImplements_has_run:
+                from twisted.trial.itrial import IReporter
+                from zope.interface import classImplements
+    
+                classImplements(TestCaseFunction, IReporter)
+                classImplements_has_run = True
+    
+            def excstore(
+                self, exc_value=None, exc_type=None, exc_tb=None, captureVars=None
+            ):
+                if exc_value is None:
+                    self._rawexcinfo = sys.exc_info()
+                else:
+                    if exc_type is None:
+                        exc_type = type(exc_value)
+                    self._rawexcinfo = (exc_type, exc_value, exc_tb)
+                try:
+                    Failure__init__(
+                        self, exc_value, exc_type, exc_tb, captureVars=captureVars
+                    )
+                except TypeError:
+                    Failure__init__(self, exc_value, exc_type, exc_tb)
+    
+            ut.Failure.__init__ = excstore
+            try:
+                res = yield
+            finally:
+                ut.Failure.__init__ = Failure__init__
+        else:
+>           res = yield
+
+.venv/lib/python3.11/site-packages/_pytest/unittest.py:429: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    @pytest.hookimpl(wrapper=True, trylast=True)
+    def pytest_runtest_protocol(item: Item) -> Generator[None, object, object]:
+        timeout = get_timeout_config_value(item.config)
+        if timeout > 0:
+            import faulthandler
+    
+            stderr = item.config.stash[fault_handler_stderr_fd_key]
+            faulthandler.dump_traceback_later(timeout, file=stderr)
+            try:
+                return (yield)
+            finally:
+                faulthandler.cancel_dump_traceback_later()
+        else:
+>           return (yield)
+
+.venv/lib/python3.11/site-packages/_pytest/faulthandler.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>, nextitem = <Function test_version>
+
+    def pytest_runtest_protocol(item: Item, nextitem: Item | None) -> bool:
+        ihook = item.ihook
+        ihook.pytest_runtest_logstart(nodeid=item.nodeid, location=item.location)
+>       runtestprotocol(item, nextitem=nextitem)
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>, log = True
+nextitem = <Function test_version>
+
+    def runtestprotocol(
+        item: Item, log: bool = True, nextitem: Item | None = None
+    ) -> list[TestReport]:
+        hasrequest = hasattr(item, "_request")
+        if hasrequest and not item._request:  # type: ignore[attr-defined]
+            # This only happens if the item is re-run, as is done by
+            # pytest-rerunfailures.
+            item._initrequest()  # type: ignore[attr-defined]
+        rep = call_and_report(item, "setup", log)
+        reports = [rep]
+        if rep.passed:
+            if item.config.getoption("setupshow", False):
+                show_test_item(item)
+            if not item.config.getoption("setuponly", False):
+>               reports.append(call_and_report(item, "call", log))
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>, when = 'call', log = True, kwds = {}
+ihook = <_pytest.config.compat.PathAwareHookProxy object at 0x717dc9db6910>
+reraise = (<class '_pytest.outcomes.Exit'>, <class 'KeyboardInterrupt'>)
+
+    def call_and_report(
+        item: Item, when: Literal["setup", "call", "teardown"], log: bool = True, **kwds
+    ) -> TestReport:
+        ihook = item.ihook
+        if when == "setup":
+            runtest_hook: Callable[..., None] = ihook.pytest_runtest_setup
+        elif when == "call":
+            runtest_hook = ihook.pytest_runtest_call
+        elif when == "teardown":
+            runtest_hook = ihook.pytest_runtest_teardown
+        else:
+            assert False, f"Unhandled runtest hook case: {when}"
+        reraise: tuple[type[BaseException], ...] = (Exit,)
+        if not item.config.getoption("usepdb", False):
+            reraise += (KeyboardInterrupt,)
+>       call = CallInfo.from_call(
+            lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+        )
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:241: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class '_pytest.runner.CallInfo'>
+func = <function call_and_report.<locals>.<lambda> at 0x717dc817fe20>
+when = 'call'
+reraise = (<class '_pytest.outcomes.Exit'>, <class 'KeyboardInterrupt'>)
+
+    @classmethod
+    def from_call(
+        cls,
+        func: Callable[[], TResult],
+        when: Literal["collect", "setup", "call", "teardown"],
+        reraise: type[BaseException] | tuple[type[BaseException], ...] | None = None,
+    ) -> CallInfo[TResult]:
+        """Call func, wrapping the result in a CallInfo.
+    
+        :param func:
+            The function to call. Called without arguments.
+        :type func: Callable[[], _pytest.runner.TResult]
+        :param when:
+            The phase in which the function is called.
+        :param reraise:
+            Exception or exceptions that shall propagate if raised by the
+            function, instead of being wrapped in the CallInfo.
+        """
+        excinfo = None
+        start = timing.time()
+        precise_start = timing.perf_counter()
+        try:
+>           result: TResult | None = func()
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:341: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>       lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+    )
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:242: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HookCaller 'pytest_runtest_call'>
+kwargs = {'item': <Function test_manager_node>}, firstresult = False
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert (
+            not self.is_historic()
+        ), "Cannot directly call a historic hook - use call_historic instead."
+        self._verify_all_args_are_provided(kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_hooks.py:513: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.config.PytestPluginManager object at 0x717dc9f38350>
+hook_name = 'pytest_runtest_call'
+methods = [<HookImpl plugin_name='runner', plugin=<module '_pytest.runner' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/sit...sableexception' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/site-packages/_pytest/unraisableexception.py'>>, ...]
+kwargs = {'item': <Function test_manager_node>}, firstresult = False
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_manager.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    @pytest.hookimpl(wrapper=True, tryfirst=True)
+    def pytest_runtest_call() -> Generator[None]:
+>       yield from thread_exception_runtest_hook()
+
+.venv/lib/python3.11/site-packages/_pytest/threadexception.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def thread_exception_runtest_hook() -> Generator[None]:
+        with catch_threading_exception() as cm:
+            try:
+>               yield
+
+.venv/lib/python3.11/site-packages/_pytest/threadexception.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    @pytest.hookimpl(wrapper=True, tryfirst=True)
+    def pytest_runtest_call() -> Generator[None]:
+>       yield from unraisable_exception_runtest_hook()
+
+.venv/lib/python3.11/site-packages/_pytest/unraisableexception.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def unraisable_exception_runtest_hook() -> Generator[None]:
+        with catch_unraisable_exception() as cm:
+            try:
+>               yield
+
+.venv/lib/python3.11/site-packages/_pytest/unraisableexception.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.logging.LoggingPlugin object at 0x717dc8eade90>
+item = <Function test_manager_node>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_call(self, item: nodes.Item) -> Generator[None]:
+        self.log_cli_handler.set_when("call")
+    
+>       yield from self._runtest_for(item, "call")
+
+.venv/lib/python3.11/site-packages/_pytest/logging.py:846: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.logging.LoggingPlugin object at 0x717dc8eade90>
+item = <Function test_manager_node>, when = 'call'
+
+    def _runtest_for(self, item: nodes.Item, when: str) -> Generator[None]:
+        """Implement the internals of the pytest_runtest_xxx() hooks."""
+        with catching_logs(
+            self.caplog_handler,
+            level=self.log_level,
+        ) as caplog_handler, catching_logs(
+            self.report_handler,
+            level=self.log_level,
+        ) as report_handler:
+            caplog_handler.reset()
+            report_handler.reset()
+            item.stash[caplog_records_key][when] = caplog_handler.records
+            item.stash[caplog_handler_key] = caplog_handler
+    
+            try:
+>               yield
+
+.venv/lib/python3.11/site-packages/_pytest/logging.py:829: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <CaptureManager _method='fd' _global_capturing=None _capture_fixture=None>
+item = <Function test_manager_node>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_call(self, item: Item) -> Generator[None]:
+        with self.item_capture("call", item):
+>           return (yield)
+
+.venv/lib/python3.11/site-packages/_pytest/capture.py:880: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_call(item: Item) -> Generator[None]:
+        xfailed = item.stash.get(xfailed_key, None)
+        if xfailed is None:
+            item.stash[xfailed_key] = xfailed = evaluate_xfail_marks(item)
+    
+        if xfailed and not item.config.option.runxfail and not xfailed.run:
+            xfail("[NOTRUN] " + xfailed.reason)
+    
+        try:
+>           return (yield)
+
+.venv/lib/python3.11/site-packages/_pytest/skipping.py:257: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+item = <Function test_manager_node>
+
+    def pytest_runtest_call(item: Item) -> None:
+        _update_current_test_var(item, "call")
+        try:
+            del sys.last_type
+            del sys.last_value
+            del sys.last_traceback
+            if sys.version_info >= (3, 12, 0):
+                del sys.last_exc  # type:ignore[attr-defined]
+        except AttributeError:
+            pass
+        try:
+>           item.runtest()
+
+.venv/lib/python3.11/site-packages/_pytest/runner.py:174: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Function test_manager_node>
+
+    def runtest(self) -> None:
+        """Execute the underlying test function."""
+>       self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+
+.venv/lib/python3.11/site-packages/_pytest/python.py:1627: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HookCaller 'pytest_pyfunc_call'>
+kwargs = {'pyfuncitem': <Function test_manager_node>}, firstresult = True
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert (
+            not self.is_historic()
+        ), "Cannot directly call a historic hook - use call_historic instead."
+        self._verify_all_args_are_provided(kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_hooks.py:513: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.config.PytestPluginManager object at 0x717dc9f38350>
+hook_name = 'pytest_pyfunc_call'
+methods = [<HookImpl plugin_name='python', plugin=<module '_pytest.python' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/sit...le 'pytest_asyncio.plugin' from '/mnt/nfs/dev/dialogLLM/.venv/lib/python3.11/site-packages/pytest_asyncio/plugin.py'>>]
+kwargs = {'pyfuncitem': <Function test_manager_node>}, firstresult = True
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+
+.venv/lib/python3.11/site-packages/pluggy/_manager.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pyfuncitem = <Function test_manager_node>
+
+    @hookimpl(trylast=True)
+    def pytest_pyfunc_call(pyfuncitem: Function) -> object | None:
+        testfunction = pyfuncitem.obj
+        if is_async_function(testfunction):
+            async_warn_and_skip(pyfuncitem.nodeid)
+        funcargs = pyfuncitem.funcargs
+        testargs = {arg: funcargs[arg] for arg in pyfuncitem._fixtureinfo.argnames}
+>       result = testfunction(**testargs)
+
+.venv/lib/python3.11/site-packages/_pytest/python.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def test_manager_node():
+        manager = ManagerNode()
+    
+>       story = manager.generate_story()
+
+tests/queue/test_conversation_manager.py:6: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.dialogllm.queue.conversation_manager.ManagerNode object at 0x717dc7f6c810>
+
+    def generate_story(self) -> str:
+        """Generates a story/persona for the conversation using Ollama."""
+>       story_framework = self.llm_manager.generate_story(self.story_prompt)
+
+src/dialogllm/queue/conversation_manager.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.dialogllm.llm.llm_provider_manager.LLMProviderManager object at 0x717dc7f6d450>
+prompt = '\n        You are a story generator. Please create a compelling story framework, including:\n\n        - Narrative St...llenges: Obstacles and conflicts the characters will face.\n\n        Format your response as a JSON object.\n        '
+
+    def generate_story(self, prompt: str) -> str:
+        """Generates text using the Ollama model."""
+        try:
+>           response = ollama.chat(
+                model=self.model_name,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": prompt
+                    }
+                ]
+            )
+
+src/dialogllm/llm/llm_provider_manager.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ollama._client.Client object at 0x717dc8163410>
+model = 'deepseek-r1:32b'
+messages = [{'content': '\n        You are a story generator. Please create a compelling story framework, including:\n\n        -...nd conflicts the characters will face.\n\n        Format your response as a JSON object.\n        ', 'role': 'system'}]
+
+    def chat(
+      self,
+      model: str = '',
+      messages: Optional[Sequence[Union[Mapping[str, Any], Message]]] = None,
+      *,
+      tools: Optional[Sequence[Union[Mapping[str, Any], Tool, Callable]]] = None,
+      stream: bool = False,
+      format: Optional[Union[Literal['', 'json'], JsonSchemaValue]] = None,
+      options: Optional[Union[Mapping[str, Any], Options]] = None,
+      keep_alive: Optional[Union[float, str]] = None,
+    ) -> Union[ChatResponse, Iterator[ChatResponse]]:
+      """
+      Create a chat response using the requested model.
+    
+      Args:
+        tools:
+          A JSON schema as a dict, an Ollama Tool or a Python Function.
+          Python functions need to follow Google style docstrings to be converted to an Ollama Tool.
+          For more information, see: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
+        stream: Whether to stream the response.
+        format: The format of the response.
+    
+      Example:
+        def add_two_numbers(a: int, b: int) -> int:
+          '''
+          Add two numbers together.
+    
+          Args:
+            a: First number to add
+            b: Second number to add
+    
+          Returns:
+            int: The sum of a and b
+          '''
+          return a + b
+    
+        client.chat(model='llama3.2', tools=[add_two_numbers], messages=[...])
+    
+      Raises `RequestError` if a model is not provided.
+    
+      Raises `ResponseError` if the request could not be fulfilled.
+    
+      Returns `ChatResponse` if `stream` is `False`, otherwise returns a `ChatResponse` generator.
+      """
+>     return self._request(
+        ChatResponse,
+        'POST',
+        '/api/chat',
+        json=ChatRequest(
+          model=model,
+          messages=[message for message in _copy_messages(messages)],
+          tools=[tool for tool in _copy_tools(tools)],
+          stream=stream,
+          format=format,
+          options=options,
+          keep_alive=keep_alive,
+        ).model_dump(exclude_none=True),
+        stream=stream,
+      )
+
+.venv/lib/python3.11/site-packages/ollama/_client.py:333: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ollama._client.Client object at 0x717dc8163410>
+cls = <class 'ollama._types.ChatResponse'>, stream = False
+args = ('POST', '/api/chat')
+kwargs = {'json': {'messages': [{'content': '\n        You are a story generator. Please create a compelling story framework, i...r response as a JSON object.\n        ', 'role': 'system'}], 'model': 'deepseek-r1:32b', 'stream': False, 'tools': []}}
+
+    def _request(
+      self,
+      cls: Type[T],
+      *args,
+      stream: bool = False,
+      **kwargs,
+    ) -> Union[T, Iterator[T]]:
+      if stream:
+    
+        def inner():
+          with self._client.stream(*args, **kwargs) as r:
+            try:
+              r.raise_for_status()
+            except httpx.HTTPStatusError as e:
+              e.response.read()
+              raise ResponseError(e.response.text, e.response.status_code) from None
+    
+            for line in r.iter_lines():
+              part = json.loads(line)
+              if err := part.get('error'):
+                raise ResponseError(err)
+              yield cls(**part)
+    
+        return inner()
+    
+>     return cls(**self._request_raw(*args, **kwargs).json())
+
+.venv/lib/python3.11/site-packages/ollama/_client.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ollama._client.Client object at 0x717dc8163410>
+args = ('POST', '/api/chat')
+kwargs = {'json': {'messages': [{'content': '\n        You are a story generator. Please create a compelling story framework, i...r response as a JSON object.\n        ', 'role': 'system'}], 'model': 'deepseek-r1:32b', 'stream': False, 'tools': []}}
+
+    def _request_raw(self, *args, **kwargs):
+      try:
+>       r = self._client.request(*args, **kwargs)
+
+.venv/lib/python3.11/site-packages/ollama/_client.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.Client object at 0x717dc81750d0>, method = 'POST'
+url = '/api/chat'
+
+    def request(
+        self,
+        method: str,
+        url: URL | str,
+        *,
+        content: RequestContent | None = None,
+        data: RequestData | None = None,
+        files: RequestFiles | None = None,
+        json: typing.Any | None = None,
+        params: QueryParamTypes | None = None,
+        headers: HeaderTypes | None = None,
+        cookies: CookieTypes | None = None,
+        auth: AuthTypes | UseClientDefault | None = USE_CLIENT_DEFAULT,
+        follow_redirects: bool | UseClientDefault = USE_CLIENT_DEFAULT,
+        timeout: TimeoutTypes | UseClientDefault = USE_CLIENT_DEFAULT,
+        extensions: RequestExtensions | None = None,
+    ) -> Response:
+        """
+        Build and send a request.
+    
+        Equivalent to:
+    
+        ```python
+        request = client.build_request(...)
+        response = client.send(request, ...)
+        ```
+    
+        See `Client.build_request()`, `Client.send()` and
+        [Merging of configuration][0] for how the various parameters
+        are merged with client-level configuration.
+    
+        [0]: /advanced/clients/#merging-of-configuration
+        """
+        if cookies is not None:
+            message = (
+                "Setting per-request cookies=<...> is being deprecated, because "
+                "the expected behaviour on cookie persistence is ambiguous. Set "
+                "cookies directly on the client instance instead."
+            )
+            warnings.warn(message, DeprecationWarning, stacklevel=2)
+    
+        request = self.build_request(
+            method=method,
+            url=url,
+            content=content,
+            data=data,
+            files=files,
+            json=json,
+            params=params,
+            headers=headers,
+            cookies=cookies,
+            timeout=timeout,
+            extensions=extensions,
+        )
+>       return self.send(request, auth=auth, follow_redirects=follow_redirects)
+
+.venv/lib/python3.11/site-packages/httpx/_client.py:825: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.Client object at 0x717dc81750d0>
+request = <Request('POST', 'http://127.0.0.1:11434/api/chat')>
+
+    def send(
+        self,
+        request: Request,
+        *,
+        stream: bool = False,
+        auth: AuthTypes | UseClientDefault | None = USE_CLIENT_DEFAULT,
+        follow_redirects: bool | UseClientDefault = USE_CLIENT_DEFAULT,
+    ) -> Response:
+        """
+        Send a request.
+    
+        The request is sent as-is, unmodified.
+    
+        Typically you'll want to build one with `Client.build_request()`
+        so that any client-level configuration is merged into the request,
+        but passing an explicit `httpx.Request()` is supported as well.
+    
+        See also: [Request instances][0]
+    
+        [0]: /advanced/clients/#request-instances
+        """
+        if self._state == ClientState.CLOSED:
+            raise RuntimeError("Cannot send a request, as the client has been closed.")
+    
+        self._state = ClientState.OPENED
+        follow_redirects = (
+            self.follow_redirects
+            if isinstance(follow_redirects, UseClientDefault)
+            else follow_redirects
+        )
+    
+        self._set_timeout(request)
+    
+        auth = self._build_request_auth(request, auth)
+    
+>       response = self._send_handling_auth(
+            request,
+            auth=auth,
+            follow_redirects=follow_redirects,
+            history=[],
+        )
+
+.venv/lib/python3.11/site-packages/httpx/_client.py:914: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.Client object at 0x717dc81750d0>
+request = <Request('POST', 'http://127.0.0.1:11434/api/chat')>
+auth = <httpx.Auth object at 0x717dc8e925d0>, follow_redirects = True
+history = []
+
+    def _send_handling_auth(
+        self,
+        request: Request,
+        auth: Auth,
+        follow_redirects: bool,
+        history: list[Response],
+    ) -> Response:
+        auth_flow = auth.sync_auth_flow(request)
+        try:
+            request = next(auth_flow)
+    
+            while True:
+>               response = self._send_handling_redirects(
+                    request,
+                    follow_redirects=follow_redirects,
+                    history=history,
+                )
+
+.venv/lib/python3.11/site-packages/httpx/_client.py:942: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.Client object at 0x717dc81750d0>
+request = <Request('POST', 'http://127.0.0.1:11434/api/chat')>
+follow_redirects = True, history = []
+
+    def _send_handling_redirects(
+        self,
+        request: Request,
+        follow_redirects: bool,
+        history: list[Response],
+    ) -> Response:
+        while True:
+            if len(history) > self.max_redirects:
+                raise TooManyRedirects(
+                    "Exceeded maximum allowed redirects.", request=request
+                )
+    
+            for hook in self._event_hooks["request"]:
+                hook(request)
+    
+>           response = self._send_single_request(request)
+
+.venv/lib/python3.11/site-packages/httpx/_client.py:979: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.Client object at 0x717dc81750d0>
+request = <Request('POST', 'http://127.0.0.1:11434/api/chat')>
+
+    def _send_single_request(self, request: Request) -> Response:
+        """
+        Sends a single request, without handling any redirections.
+        """
+        transport = self._transport_for_url(request.url)
+        start = time.perf_counter()
+    
+        if not isinstance(request.stream, SyncByteStream):
+            raise RuntimeError(
+                "Attempted to send an async request with a sync Client instance."
+            )
+    
+        with request_context(request=request):
+>           response = transport.handle_request(request)
+
+.venv/lib/python3.11/site-packages/httpx/_client.py:1014: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpx.HTTPTransport object at 0x717dc80008d0>
+request = <Request('POST', 'http://127.0.0.1:11434/api/chat')>
+
+    def handle_request(
+        self,
+        request: Request,
+    ) -> Response:
+        assert isinstance(request.stream, SyncByteStream)
+        import httpcore
+    
+        req = httpcore.Request(
+            method=request.method,
+            url=httpcore.URL(
+                scheme=request.url.raw_scheme,
+                host=request.url.raw_host,
+                port=request.url.port,
+                target=request.url.raw_path,
+            ),
+            headers=request.headers.raw,
+            content=request.stream,
+            extensions=request.extensions,
+        )
+        with map_httpcore_exceptions():
+>           resp = self._pool.handle_request(req)
+
+.venv/lib/python3.11/site-packages/httpx/_transports/default.py:250: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ConnectionPool [Requests: 0 active, 0 queued | Connections: 0 active, 0 idle]>
+request = <Request [b'POST']>
+
+    def handle_request(self, request: Request) -> Response:
+        """
+        Send an HTTP request, and return an HTTP response.
+    
+        This is the core implementation that is called into by `.request()` or `.stream()`.
+        """
+        scheme = request.url.scheme.decode()
+        if scheme == "":
+            raise UnsupportedProtocol(
+                "Request URL is missing an 'http://' or 'https://' protocol."
+            )
+        if scheme not in ("http", "https", "ws", "wss"):
+            raise UnsupportedProtocol(
+                f"Request URL has an unsupported protocol '{scheme}://'."
+            )
+    
+        timeouts = request.extensions.get("timeout", {})
+        timeout = timeouts.get("pool", None)
+    
+        with self._optional_thread_lock:
+            # Add the incoming request to our request queue.
+            pool_request = PoolRequest(request)
+            self._requests.append(pool_request)
+    
+        try:
+            while True:
+                with self._optional_thread_lock:
+                    # Assign incoming requests to available connections,
+                    # closing or creating new connections as required.
+                    closing = self._assign_requests_to_connections()
+                self._close_connections(closing)
+    
+                # Wait until this request has an assigned connection.
+                connection = pool_request.wait_for_connection(timeout=timeout)
+    
+                try:
+                    # Send the request on the assigned connection.
+                    response = connection.handle_request(
+                        pool_request.request
+                    )
+                except ConnectionNotAvailable:
+                    # In some cases a connection may initially be available to
+                    # handle a request, but then become unavailable.
+                    #
+                    # In this case we clear the connection and try again.
+                    pool_request.clear_connection()
+                else:
+                    break  # pragma: nocover
+    
+        except BaseException as exc:
+            with self._optional_thread_lock:
+                # For any exception or cancellation we remove the request from
+                # the queue, and then re-assign requests to connections.
+                self._requests.remove(pool_request)
+                closing = self._assign_requests_to_connections()
+    
+            self._close_connections(closing)
+>           raise exc from None
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ConnectionPool [Requests: 0 active, 0 queued | Connections: 0 active, 0 idle]>
+request = <Request [b'POST']>
+
+    def handle_request(self, request: Request) -> Response:
+        """
+        Send an HTTP request, and return an HTTP response.
+    
+        This is the core implementation that is called into by `.request()` or `.stream()`.
+        """
+        scheme = request.url.scheme.decode()
+        if scheme == "":
+            raise UnsupportedProtocol(
+                "Request URL is missing an 'http://' or 'https://' protocol."
+            )
+        if scheme not in ("http", "https", "ws", "wss"):
+            raise UnsupportedProtocol(
+                f"Request URL has an unsupported protocol '{scheme}://'."
+            )
+    
+        timeouts = request.extensions.get("timeout", {})
+        timeout = timeouts.get("pool", None)
+    
+        with self._optional_thread_lock:
+            # Add the incoming request to our request queue.
+            pool_request = PoolRequest(request)
+            self._requests.append(pool_request)
+    
+        try:
+            while True:
+                with self._optional_thread_lock:
+                    # Assign incoming requests to available connections,
+                    # closing or creating new connections as required.
+                    closing = self._assign_requests_to_connections()
+                self._close_connections(closing)
+    
+                # Wait until this request has an assigned connection.
+                connection = pool_request.wait_for_connection(timeout=timeout)
+    
+                try:
+                    # Send the request on the assigned connection.
+>                   response = connection.handle_request(
+                        pool_request.request
+                    )
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py:236: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTPConnection ['http://127.0.0.1:11434', HTTP/1.1, CLOSED, Request Count: 1]>
+request = <Request [b'POST']>
+
+    def handle_request(self, request: Request) -> Response:
+        if not self.can_handle_request(request.url.origin):
+            raise RuntimeError(
+                f"Attempted to send request to {request.url.origin} on connection to {self._origin}"
+            )
+    
+        try:
+            with self._request_lock:
+                if self._connection is None:
+                    stream = self._connect(request)
+    
+                    ssl_object = stream.get_extra_info("ssl_object")
+                    http2_negotiated = (
+                        ssl_object is not None
+                        and ssl_object.selected_alpn_protocol() == "h2"
+                    )
+                    if http2_negotiated or (self._http2 and not self._http1):
+                        from .http2 import HTTP2Connection
+    
+                        self._connection = HTTP2Connection(
+                            origin=self._origin,
+                            stream=stream,
+                            keepalive_expiry=self._keepalive_expiry,
+                        )
+                    else:
+                        self._connection = HTTP11Connection(
+                            origin=self._origin,
+                            stream=stream,
+                            keepalive_expiry=self._keepalive_expiry,
+                        )
+        except BaseException as exc:
+            self._connect_failed = True
+            raise exc
+    
+>       return self._connection.handle_request(request)
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/connection.py:103: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTP11Connection ['http://127.0.0.1:11434', CLOSED, Request Count: 1]>
+request = <Request [b'POST']>
+
+    def handle_request(self, request: Request) -> Response:
+        if not self.can_handle_request(request.url.origin):
+            raise RuntimeError(
+                f"Attempted to send request to {request.url.origin} on connection "
+                f"to {self._origin}"
+            )
+    
+        with self._state_lock:
+            if self._state in (HTTPConnectionState.NEW, HTTPConnectionState.IDLE):
+                self._request_count += 1
+                self._state = HTTPConnectionState.ACTIVE
+                self._expire_at = None
+            else:
+                raise ConnectionNotAvailable()
+    
+        try:
+            kwargs = {"request": request}
+            try:
+                with Trace(
+                    "send_request_headers", logger, request, kwargs
+                ) as trace:
+                    self._send_request_headers(**kwargs)
+                with Trace("send_request_body", logger, request, kwargs) as trace:
+                    self._send_request_body(**kwargs)
+            except WriteError:
+                # If we get a write error while we're writing the request,
+                # then we supress this error and move on to attempting to
+                # read the response. Servers can sometimes close the request
+                # pre-emptively and then respond with a well formed HTTP
+                # error response.
+                pass
+    
+            with Trace(
+                "receive_response_headers", logger, request, kwargs
+            ) as trace:
+                (
+                    http_version,
+                    status,
+                    reason_phrase,
+                    headers,
+                    trailing_data,
+                ) = self._receive_response_headers(**kwargs)
+                trace.return_value = (
+                    http_version,
+                    status,
+                    reason_phrase,
+                    headers,
+                )
+    
+            network_stream = self._network_stream
+    
+            # CONNECT or Upgrade request
+            if (status == 101) or (
+                (request.method == b"CONNECT") and (200 <= status < 300)
+            ):
+                network_stream = HTTP11UpgradeStream(network_stream, trailing_data)
+    
+            return Response(
+                status=status,
+                headers=headers,
+                content=HTTP11ConnectionByteStream(self, request),
+                extensions={
+                    "http_version": http_version,
+                    "reason_phrase": reason_phrase,
+                    "network_stream": network_stream,
+                },
+            )
+        except BaseException as exc:
+            with ShieldCancellation():
+                with Trace("response_closed", logger, request) as trace:
+                    self._response_closed()
+>           raise exc
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/http11.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTP11Connection ['http://127.0.0.1:11434', CLOSED, Request Count: 1]>
+request = <Request [b'POST']>
+
+    def handle_request(self, request: Request) -> Response:
+        if not self.can_handle_request(request.url.origin):
+            raise RuntimeError(
+                f"Attempted to send request to {request.url.origin} on connection "
+                f"to {self._origin}"
+            )
+    
+        with self._state_lock:
+            if self._state in (HTTPConnectionState.NEW, HTTPConnectionState.IDLE):
+                self._request_count += 1
+                self._state = HTTPConnectionState.ACTIVE
+                self._expire_at = None
+            else:
+                raise ConnectionNotAvailable()
+    
+        try:
+            kwargs = {"request": request}
+            try:
+                with Trace(
+                    "send_request_headers", logger, request, kwargs
+                ) as trace:
+                    self._send_request_headers(**kwargs)
+                with Trace("send_request_body", logger, request, kwargs) as trace:
+                    self._send_request_body(**kwargs)
+            except WriteError:
+                # If we get a write error while we're writing the request,
+                # then we supress this error and move on to attempting to
+                # read the response. Servers can sometimes close the request
+                # pre-emptively and then respond with a well formed HTTP
+                # error response.
+                pass
+    
+            with Trace(
+                "receive_response_headers", logger, request, kwargs
+            ) as trace:
+                (
+                    http_version,
+                    status,
+                    reason_phrase,
+                    headers,
+                    trailing_data,
+>               ) = self._receive_response_headers(**kwargs)
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/http11.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTP11Connection ['http://127.0.0.1:11434', CLOSED, Request Count: 1]>
+request = <Request [b'POST']>
+
+    def _receive_response_headers(
+        self, request: Request
+    ) -> tuple[bytes, int, bytes, list[tuple[bytes, bytes]], bytes]:
+        timeouts = request.extensions.get("timeout", {})
+        timeout = timeouts.get("read", None)
+    
+        while True:
+>           event = self._receive_event(timeout=timeout)
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/http11.py:177: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTP11Connection ['http://127.0.0.1:11434', CLOSED, Request Count: 1]>
+timeout = None
+
+    def _receive_event(
+        self, timeout: float | None = None
+    ) -> h11.Event | type[h11.PAUSED]:
+        while True:
+            with map_exceptions({h11.RemoteProtocolError: RemoteProtocolError}):
+                event = self._h11_state.next_event()
+    
+            if event is h11.NEED_DATA:
+>               data = self._network_stream.read(
+                    self.READ_NUM_BYTES, timeout=timeout
+                )
+
+.venv/lib/python3.11/site-packages/httpcore/_sync/http11.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <httpcore._backends.sync.SyncStream object at 0x717dc8ee3190>
+max_bytes = 65536, timeout = None
+
+    def read(self, max_bytes: int, timeout: float | None = None) -> bytes:
+        exc_map: ExceptionMapping = {socket.timeout: ReadTimeout, OSError: ReadError}
+        with map_exceptions(exc_map):
+            self._sock.settimeout(timeout)
+>           return self._sock.recv(max_bytes)
+E           KeyboardInterrupt
+
+.venv/lib/python3.11/site-packages/httpcore/_backends/sync.py:128: KeyboardInterrupt
+24 passed, 1 warning in 9.13s
