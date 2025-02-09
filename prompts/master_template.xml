@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<master_prompt>
+    <configuration>
+        <duration_minutes>30</duration_minutes>
+        <exchange_count>10</exchange_count>
+        <pause_between_exchanges>1.0</pause_between_exchanges>
+    </configuration>
+    
+    <story_generation>
+        <instruction>
+            As the master orchestrator, analyze the following aspects to create an engaging dialogue:
+            1. Topic Selection: Choose a thought-provoking topic that combines multiple disciplines
+            2. Character Design: Create two distinct personas with complementary viewpoints
+            3. Narrative Arc: Design a progression of discussion points that build upon each other
+            4. Interaction Style: Define how the characters should engage with each other
+        </instruction>
+        <constraints>
+            <topic_areas>philosophy, science, technology, ethics, society</topic_areas>
+            <complexity>advanced academic discussion</complexity>
+            <tone>professional yet engaging</tone>
+        </constraints>
+    </story_generation>
+    
+    <persona_template>
+        <background>
+            <historical_context/>
+            <expertise_areas/>
+            <philosophical_stance/>
+        </background>
+        <communication_style>
+            <language_pattern/>
+            <reasoning_approach/>
+            <typical_references/>
+        </communication_style>
+        <interaction_guidelines>
+            <response_structure/>
+            <engagement_pattern/>
+            <knowledge_boundaries/>
+        </interaction_guidelines>
+    </persona_template>
+    
+    <dialogue_management>
+        <progression>
+            <phase name="introduction">Establish context and initial positions</phase>
+            <phase name="exploration">Deep dive into key concepts</phase>
+            <phase name="challenge">Present and address counterarguments</phase>
+            <phase name="synthesis">Work towards common understanding</phase>
+            <phase name="conclusion">Summarize insights and implications</phase>
+        </progression>
+        <interaction_rules>
+            <rule>Each response must explicitly connect to previous point</rule>
+            <rule>Alternate between theoretical and practical implications</rule>
+            <rule>Maintain consistent personality and expertise level</rule>
+        </interaction_rules>
+    </dialogue_management>
+</master_prompt>

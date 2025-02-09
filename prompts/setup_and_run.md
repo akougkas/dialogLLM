@@ -242,6 +242,159 @@ model_config = json.loads(os.getenv("AVAILABLE_MODELS"))["codellama"]
 model_config = json.loads(os.getenv("AVAILABLE_MODELS"))["mistral"]
 ```
 
+# DialogLLM Distributed Deployment Setup
+
+## System Architecture
+
+### 1. Manager Node (Desktop)
+- **Hostname**: desktop
+- **IP**: 192.168.86.139
+- **LLM Service**: 
+  - Ollama running on port 11434
+  - Model: mistral-small:latest
+  - Role: Story generation and conversation orchestration
+- **Components**:
+  - ConversationManager
+  - Redis message broker
+  - Master template processing
+  - Logging and monitoring
+
+### 2. Participant Node 1 (Laptop)
+- **Hostname**: laptop
+- **IP**: 192.168.86.200
+- **Hardware**: 8GB NVIDIA RTX 4070
+- **LLM Service**: 
+  - Ollama with all available models
+  - Dedicated persona instance
+  - Custom model configuration
+
+### 3. Participant Node 2 (Mini)
+- **Hostname**: mini
+- **IP**: 192.168.86.249
+- **Hardware**: 16GB AMD Radeon 6950XT
+- **LLM Service**: 
+  - Ollama with all available models
+  - Dedicated persona instance
+  - Custom model configuration
+
+## Deployment Flow
+
+### Phase 1: Manager Initialization
+1. Load master template from XML
+2. Connect to Redis message broker
+3. Initialize ConversationManager
+4. Use mistral-small to:
+   - Generate storyline and concepts
+   - Define participant personas
+   - Create custom prompts for each persona
+
+### Phase 2: Participant Setup
+1. Deploy participant services to laptop and mini
+2. Each participant:
+   - Receives persona configuration
+   - Loads appropriate LLM model
+   - Connects to Redis queues
+   - Initializes message handlers
+
+### Phase 3: Conversation Flow
+1. Manager routes messages between participants
+2. Each participant:
+   - Listens on dedicated queue
+   - Processes messages through LLM
+   - Responds based on persona
+3. Manager:
+   - Logs all interactions
+   - Monitors conversation flow
+   - Handles error recovery
+
+## Configuration Requirements
+
+### Environment Variables
+```env
+# Manager Node
+REDIS_HOST=192.168.86.139
+REDIS_PORT=6379
+OLLAMA_URL=http://localhost:11434
+MANAGER_MODEL=mistral-small:latest
+
+# Participant Nodes
+REDIS_HOST=192.168.86.139  # Same for all to connect to manager
+REDIS_PORT=6379
+OLLAMA_URL=http://localhost:11434  # Local to each node
+```
+
+### Redis Queue Structure
+```
+llm_tasks_{persona_id}      # Input queue for each persona
+llm_responses_{persona_id}  # Output queue for each persona
+manager_queue              # System control messages
+```
+
+### Logging Requirements
+- Conversation history
+- Model performance metrics
+- System health status
+- Error tracking
+- Network latency
+
+## Testing Procedure
+
+1. Start manager node:
+   ```bash
+   # On desktop (192.168.86.139)
+   python src/main.py --role manager
+   ```
+
+2. Start participant nodes:
+   ```bash
+   # On laptop (192.168.86.200)
+   python src/main.py --role participant --node-id 1
+
+   # On mini (192.168.86.249)
+   python src/main.py --role participant --node-id 2
+   ```
+
+3. Verify:
+   - Redis connectivity
+   - Model loading
+   - Message routing
+   - Conversation flow
+
+## Success Criteria
+
+1. Manager successfully:
+   - Generates story and personas
+   - Routes messages
+   - Maintains conversation state
+
+2. Participants successfully:
+   - Load correct models
+   - Process messages
+   - Maintain persona consistency
+
+3. System demonstrates:
+   - Reliable message delivery
+   - Proper error handling
+   - Consistent performance
+
+## Error Handling
+
+1. Node Failures:
+   - Detect disconnected participants
+   - Attempt reconnection
+   - Save conversation state
+
+2. Model Errors:
+   - Retry failed generations
+   - Fall back to alternative models
+   - Log errors for analysis
+
+3. Network Issues:
+   - Handle Redis connection loss
+   - Buffer messages when needed
+   - Resync on reconnection
+
+
 ### Next Steps
 
 1. Implement model selection based on message content/intent

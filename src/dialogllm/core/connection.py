@@ -8,11 +8,11 @@ import asyncio
 logger = logging.getLogger(__name__)
 
 class QueueConnectionManager:
-    def __init__(self, redis_url: str):
+    def __init__(self, redis_url: str, task_queue: str = "llm_tasks", response_queue: str = "llm_responses"):
         self.redis_url = redis_url
         self._redis_client = None
-        self.response_queue = "llm_responses"
-        self.task_queue = "llm_tasks"
+        self.response_queue = response_queue
+        self.task_queue = task_queue
 
     async def connect(self):
         """Establish connection to Redis."""
