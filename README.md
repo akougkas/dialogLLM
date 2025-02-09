@@ -19,8 +19,6 @@ dialogllm/
 │       └── utils/       # Utility functions
 │           └── __init__.py
 ├── tests/              # Test files
-├── docs/              # Documentation
-├── examples/          # Example usage
 ├── prompts/          # Implementation prompts
 ├── pyproject.toml    # Project configuration
 └── README.md         # This file

@@ -13,8 +13,6 @@
    │       ├── queue/       # Redis queue management
    │       └── utils/       # Utility functions
    ├── tests/              # Test files
-   ├── docs/               # Documentation
-   └── examples/           # Example usage
    ```
 
 2. **File Naming**
@@ -35,11 +33,6 @@
    - Ruff for linting
    - MyPy for type checking
 
-3. **Documentation**
-   - Docstrings required for all public APIs
-   - Type hints required
-   - README.md for each major component
-   - Examples in docstrings
 
 ## Development Workflow
 
@@ -100,32 +93,6 @@
    - Rate limiting
    - Performance monitoring
 
-## Security Rules
-
-1. **Data Safety**
-   - No sensitive data in logs
-   - Secure configuration management
-   - Input validation
-   - Output sanitization
-
-2. **Dependencies**
-   - Regular security updates
-   - Dependency scanning
-   - No unnecessary dependencies
-
-## Documentation Requirements
-
-1. **Code Documentation**
-   - Function/method docstrings
-   - Module docstrings
-   - Type hints
-   - Usage examples
-
-2. **Project Documentation**
-   - Architecture overview
-   - Setup instructions
-   - API documentation
-   - Usage examples
 
 ## Monitoring and Logging
 
@@ -144,13 +111,6 @@
 ## Error Handling
 
 1. **Guidelines**
-   - Custom exceptions
-   - Error recovery
-   - Graceful degradation
+   - Simple exception handling
    - User feedback
 
-2. **Reporting**
-   - Error aggregation
-   - Root cause analysis
-   - Recovery metrics
-   - Alert thresholds
